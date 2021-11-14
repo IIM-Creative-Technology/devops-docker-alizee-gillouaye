@@ -26,7 +26,7 @@ jobs:
         run: npm build
 
       - name: "Run tests"
-        run: npm test -- --no-watch --no-progress
+        run: npm test 
 
       - name: "Install ruby"
         uses: ruby/setup-ruby@v1
