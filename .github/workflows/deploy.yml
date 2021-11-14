@@ -39,7 +39,7 @@ jobs:
 
       - name: Deploy staging
         if: github.ref == 'refs/heads/develop'
-        run: npm build
+        run: dpl --provider=heroku --app=${{secrets.HEROKU_APP}} --api-key=${{secrets.HEROKU_API_KEY}} --skip_cleanup=true # Mettre un autre url heroku pour la pre prod
 
       - name: "Install ruby"
         uses: ruby/setup-ruby@v1
