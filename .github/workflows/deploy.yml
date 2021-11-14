@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 jobs:
   ci-cd:
@@ -28,6 +29,9 @@ jobs:
       # - name: "Run tests"
       #   run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
+      - name: Deploy staging
+        if: github.ref == 'refs/heads/develop'
+
       - name: "Install ruby"
         uses: ruby/setup-ruby@v1
         with:
@@ -37,4 +41,5 @@ jobs:
         run: gem install dpl
 
       - name: "Deploy to Heroku"
+        if: github.ref == 'refs/heads/master'
         run: dpl --provider=heroku --app=${{secrets.HEROKU_APP}} --api-key=${{secrets.HEROKU_API_KEY}} --skip_cleanup=true
